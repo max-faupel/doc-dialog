@@ -1,0 +1,66 @@
+/* Globale Farben und Grundstile, Komponenten nutzen nur die Variablen */
+:root {
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-surface-muted: #eef0f4;
+  --color-border: #d9dde4;
+  --color-text: #1c2230;
+  --color-text-muted: #5b6475;
+  --color-accent: #2f5bd3;
+  --color-accent-contrast: #ffffff;
+  --color-user-bubble: #2f5bd3;
+  --color-user-text: #ffffff;
+  --color-error-bg: #fdecec;
+  --color-error-border: #f1b5b5;
+  --color-error-text: #8a1f1f;
+  --color-highlight: #fff3c4;
+
+  --radius: 10px;
+  --font-sans: system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --font-mono: ui-monospace, 'Cascadia Code', Menlo, monospace;
+
+  color-scheme: light dark;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-bg: #12151b;
+    --color-surface: #1b2029;
+    --color-surface-muted: #232a35;
+    --color-border: #313a48;
+    --color-text: #e4e8ef;
+    --color-text-muted: #9aa4b5;
+    --color-accent: #7ea2ff;
+    --color-accent-contrast: #0f1420;
+    --color-user-bubble: #3a5fc8;
+    --color-user-text: #ffffff;
+    --color-error-bg: #3a1d20;
+    --color-error-border: #6b3036;
+    --color-error-text: #ffb4b4;
+    --color-highlight: #4a4120;
+  }
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  height: 100%;
+}
+
+body {
+  background: var(--color-bg);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: 16px;
+  line-height: 1.55;
+}
+
+#app {
+  height: 100%;
+}

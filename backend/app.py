@@ -4,12 +4,21 @@ Start:  uvicorn app:app --reload
 Test:   http://localhost:8000/docs
 """
 from fastapi import FastAPI, HTTPException
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
 
 import config
 import rag
 
-app = FastAPI(title="RAG-Demo", description="Fragen an eigene Dokumente, lokal mit Ollama oder in der Cloud")
+app = FastAPI(title="doc-dialog", description="Fragen an eigene Dokumente, lokal mit Ollama oder in der Cloud")
+
+# Erlaubt direkte Aufrufe vom Frontend (im Dev-Betrieb läuft es zusätzlich über den Vite-Proxy)
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=config.CORS_ORIGINS,
+    allow_methods=["GET", "POST"],
+    allow_headers=["Content-Type"],
+)
 
 
 class Question(BaseModel):

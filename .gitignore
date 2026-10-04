@@ -1,1 +1,24 @@
-.env*
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+
+# Index und eigene Dokumente
+backend/chroma_db/
+backend/docs/*
+!backend/docs/.gitkeep
+
+# Frontend (weitere Einträge in frontend/.gitignore)
+node_modules/
+frontend/dist/
+
+# Editor und System
+.idea/
+.DS_Store
+Thumbs.db
