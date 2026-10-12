@@ -108,6 +108,10 @@ Im Standard-Netzwerkmodus von WSL2 (NAT) erreicht `localhost` in WSL nicht den W
 
 2. **Host-IP verwenden:** In Windows die Umgebungsvariable `OLLAMA_HOST=0.0.0.0` setzen und Ollama neu starten. In `backend/.env` dann die Host-IP eintragen, die `ip route show default | awk '{print $3}'` liefert, z. B. `LLM_BASE_URL=http://172.20.80.1:11434/v1`. Die IP kann sich nach einem Neustart ändern. Unter Umständen muss die Windows-Firewall Port 11434 freigeben. Ollama ist damit auch im lokalen Netz erreichbar.
 
+## Weiterentwicklung mit Claude Code
+
+Für die agentische Weiterentwicklung gibt es Subagents und die Skills `/feature`, `/spec` und `/review`. Wie sie zusammenspielen, beschreibt [docs/agentic-workflow.md](docs/agentic-workflow.md).
+
 ## Ideen zum Experimentieren
 
 1. **Chunk-Größe:** `CHUNK_SIZE` auf 100 und auf 800 setzen, jeweils `python ingest.py --reset`, gleiche Fragen stellen und vergleichen.

@@ -53,6 +53,7 @@ Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
 - Bei größeren Änderungen erst einen Plan vorschlagen, dann umsetzen.
 
 ## Agentic Workflow
+Ausführliche Anleitung: `docs/agentic-workflow.md`
 - Specs liegen in `docs/features/<slug>.md` (Status `draft` → `approved` → `done`), API-Vertrag und Akzeptanzkriterien darin sind verbindlich.
 - Subagents in `.claude/agents/`: `feature-analyst` (Spec, schreibt nur `docs/features/`), `backend-dev` (nur `backend/`), `frontend-dev` (nur `frontend/`), `reviewer` (read-only, Findings blocker / should-fix / nit).
 - `/feature <Idee|Spec-Pfad>`: Spec → Freigabe durch den Nutzer → Branch `feature/<slug>` von `main` → Backend → Frontend → Review → max. 2 Fix-Runden → Spec `done` und Commit-Vorschlag. Die Orchestrierung liegt beim Hauptagent. Subagents bekommen Spec-Pfad und Auftrag explizit.
