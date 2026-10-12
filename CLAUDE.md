@@ -51,3 +51,11 @@ Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
 ## Arbeitsweise
 - Nach Änderungen prüfen: Backend startet ohne Fehler, `pytest` und `ruff check .` sind grün; im Frontend laufen `test:unit`, `lint`, `type-check` und `build` durch.
 - Bei größeren Änderungen erst einen Plan vorschlagen, dann umsetzen.
+
+## Agentic Workflow
+- Specs liegen in `docs/features/<slug>.md` (Status `draft` → `approved` → `done`), API-Vertrag und Akzeptanzkriterien darin sind verbindlich.
+- Subagents in `.claude/agents/`: `feature-analyst` (Spec, schreibt nur `docs/features/`), `backend-dev` (nur `backend/`), `frontend-dev` (nur `frontend/`), `reviewer` (read-only, Findings blocker / should-fix / nit).
+- `/feature <Idee|Spec-Pfad>`: Spec → Freigabe durch den Nutzer → Branch `feature/<slug>` von `main` → Backend → Frontend → Review → max. 2 Fix-Runden → Spec `done` und Commit-Vorschlag. Die Orchestrierung liegt beim Hauptagent. Subagents bekommen Spec-Pfad und Auftrag explizit.
+- `/spec <Idee>` nur Spec, `/review` nur Review des aktuellen Diffs.
+- Commit, Push, PR und Merge nur nach Freigabe durch den Nutzer. Integration per PR gegen `main`.
+- Ein PostToolUse-Hook formatiert bearbeitete Dateien automatisch (ruff bzw. prettier, `.claude/hooks/format.sh`).
