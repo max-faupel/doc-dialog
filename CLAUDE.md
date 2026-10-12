@@ -14,14 +14,18 @@ RAG-System zum Befragen eigener Dokumente. Python-Backend (FastAPI + ChromaDB), 
 
 ## Befehle
 
-Backend (in `backend/`, mit aktivierter venv):
-- `pip install -r requirements.txt`
+Backend (in `backend/`, mit aktivierter venv `.venv`):
+- `pip install -r requirements-dev.txt` (enthält `requirements.txt` plus pytest, ruff)
+- `pytest` – Tests, LLM und Index werden gemockt (`tests/conftest.py`)
+- `ruff check .` / `ruff format .`
 - `python ingest.py` / `python ingest.py --reset`
 - `uvicorn app:app --reload` (Port 8000)
 
 Frontend (in `frontend/`):
 - `npm install`
 - `npm run dev` (Port 5173, `/api` wird per Vite-Proxy auf `http://localhost:8000` umgeleitet)
+- `npm run test:unit` (Vitest, Tests in `src/**/__tests__/*.spec.ts`)
+- `npm run lint` (ESLint mit `--fix`), `npm run format` (Prettier)
 - `npm run build`, `npm run type-check`
 
 Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
@@ -45,5 +49,5 @@ Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
 - Styling mit Scoped CSS und CSS-Variablen, helles und dunkles Theme über `prefers-color-scheme`.
 
 ## Arbeitsweise
-- Nach Änderungen prüfen: Backend startet ohne Fehler, `npm run type-check` und `npm run build` laufen durch.
+- Nach Änderungen prüfen: Backend startet ohne Fehler, `pytest` und `ruff check .` sind grün; im Frontend laufen `test:unit`, `lint`, `type-check` und `build` durch.
 - Bei größeren Änderungen erst einen Plan vorschlagen, dann umsetzen.

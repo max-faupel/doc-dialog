@@ -3,6 +3,7 @@
 Start:  uvicorn app:app --reload
 Test:   http://localhost:8000/docs
 """
+
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel, Field
@@ -45,7 +46,7 @@ def ask(q: Question):
     try:
         return rag.answer(q.question, q.top_k)
     except Exception as e:
-        raise HTTPException(status_code=502, detail=f"LLM-Aufruf fehlgeschlagen: {e}")
+        raise HTTPException(status_code=502, detail=f"LLM-Aufruf fehlgeschlagen: {e}") from e
 
 
 @app.get("/health")

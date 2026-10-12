@@ -22,7 +22,11 @@ const segments = computed(() =>
     <p class="message__text">{{ message.text }}</p>
   </article>
 
-  <article v-else-if="message.status === 'loading'" class="message message--assistant" aria-busy="true">
+  <article
+    v-else-if="message.status === 'loading'"
+    class="message message--assistant"
+    aria-busy="true"
+  >
     <p class="message__loading">
       <span class="dots" aria-hidden="true"><span></span><span></span><span></span></span>
       Durchsuche Dokumente und formuliere Antwort …
@@ -34,7 +38,9 @@ const segments = computed(() =>
       {{ message.errorKind === 'network' ? 'Backend nicht erreichbar' : 'Anfrage fehlgeschlagen' }}
     </p>
     <p class="message__text">{{ message.text }}</p>
-    <button type="button" class="retry" @click="emit('retry', message.question)">Erneut versuchen</button>
+    <button type="button" class="retry" @click="emit('retry', message.question)">
+      Erneut versuchen
+    </button>
   </article>
 
   <article v-else class="message message--assistant">
@@ -50,7 +56,8 @@ const segments = computed(() =>
               class="cite__link"
               :aria-label="`Zur Quelle ${ref_.n} springen`"
               @click="sourceList?.reveal(ref_.n)"
-            >{{ ref_.n }}</button
+            >
+              {{ ref_.n }}</button
             ><template v-else>{{ ref_.n }}</template></template
           >]</span
         >

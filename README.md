@@ -38,7 +38,8 @@ doc-dialog/
 cd backend
 python -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements.txt
+pip install -r requirements-dev.txt   # nur Betrieb: requirements.txt
+pytest                             # Tests (ohne Ollama)
 cp .env.example .env               # bei Bedarf anpassen
 
 # Dokumente nach backend/docs/ kopieren, dann indexieren
@@ -68,7 +69,7 @@ npm run dev                        # http://localhost:5173
 
 Der Vite-Dev-Server leitet `/api/*` an `http://localhost:8000/*` weiter. Das Backend muss dafür laufen. Ist es nicht erreichbar, zeigt die Oberfläche einen Hinweis statt einer Antwort.
 
-Weitere Befehle: `npm run type-check`, `npm run build` (Ergebnis in `frontend/dist/`).
+Weitere Befehle: `npm run test:unit`, `npm run lint`, `npm run format`, `npm run type-check`, `npm run build` (Ergebnis in `frontend/dist/`).
 
 ## Konfiguration
 

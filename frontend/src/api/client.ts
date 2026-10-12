@@ -40,12 +40,21 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
 
   if (detail === undefined) {
     // Ohne FastAPI-"detail" kam die Antwort nicht vom Backend: Proxy-Fehler, Backend aus
-    if (res.status >= 500 || res.status === 0) throw new ApiError('network', NETWORK_MESSAGE, res.status)
-    throw new ApiError('unknown', `Unerwartete Antwort vom Server (HTTP ${res.status}).`, res.status)
+    if (res.status >= 500 || res.status === 0)
+      throw new ApiError('network', NETWORK_MESSAGE, res.status)
+    throw new ApiError(
+      'unknown',
+      `Unerwartete Antwort vom Server (HTTP ${res.status}).`,
+      res.status,
+    )
   }
 
   if (res.status === 422) {
-    throw new ApiError('validation', 'Die Frage ist ungültig. Sie muss mindestens 3 Zeichen lang sein.', 422)
+    throw new ApiError(
+      'validation',
+      'Die Frage ist ungültig. Sie muss mindestens 3 Zeichen lang sein.',
+      422,
+    )
   }
   if (res.status === 502) {
     throw new ApiError(
@@ -54,7 +63,11 @@ async function request<T>(path: string, init?: RequestInit): Promise<T> {
       502,
     )
   }
-  throw new ApiError('unknown', `Fehler vom Server (HTTP ${res.status}): ${String(detail)}`, res.status)
+  throw new ApiError(
+    'unknown',
+    `Fehler vom Server (HTTP ${res.status}): ${String(detail)}`,
+    res.status,
+  )
 }
 
 export function ask(payload: AskRequest): Promise<AskResponse> {

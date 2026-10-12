@@ -1,0 +1,13 @@
+# Nur Tool-Konfiguration, das Backend ist kein installierbares Paket.
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["chroma_db", "docs"]
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]

@@ -95,7 +95,9 @@ defineExpose({ reveal })
   border-radius: calc(var(--radius) - 4px);
   background: var(--color-surface-muted);
   scroll-margin: 1rem;
-  transition: background-color 0.4s ease, border-color 0.4s ease;
+  transition:
+    background-color 0.4s ease,
+    border-color 0.4s ease;
 }
 
 .source--highlight {

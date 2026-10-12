@@ -1,4 +1,5 @@
 """Zentrale Konfiguration. Alle Werte lassen sich über .env oder Umgebungsvariablen überschreiben."""
+
 import os
 from pathlib import Path
 
@@ -23,9 +24,9 @@ DB_DIR = str(BASE_DIR / os.getenv("DB_DIR", "chroma_db"))
 COLLECTION = os.getenv("COLLECTION", "dokumente")
 
 # Stellschrauben zum Experimentieren
-CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "300"))      # Wörter pro Abschnitt
+CHUNK_SIZE = int(os.getenv("CHUNK_SIZE", "300"))  # Wörter pro Abschnitt
 CHUNK_OVERLAP = int(os.getenv("CHUNK_OVERLAP", "50"))  # Überlappung in Wörtern
-TOP_K = int(os.getenv("TOP_K", "4"))                   # Abschnitte pro Frage
+TOP_K = int(os.getenv("TOP_K", "4"))  # Abschnitte pro Frage
 
 # Erlaubte Origins für CORS (kommagetrennt), Standard ist der Vite-Dev-Server
 CORS_ORIGINS = [o.strip() for o in os.getenv("CORS_ORIGINS", "http://localhost:5173").split(",") if o.strip()]

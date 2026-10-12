@@ -4,6 +4,7 @@ Aufruf:
     python ingest.py          # neue/geänderte Abschnitte hinzufügen bzw. aktualisieren
     python ingest.py --reset  # Index komplett neu aufbauen (z. B. nach Änderung der Chunk-Größe)
 """
+
 import argparse
 import hashlib
 from pathlib import Path
@@ -30,7 +31,7 @@ def chunk_words(text: str, size: int, overlap: int):
     words = text.split()
     step = max(1, size - overlap)
     for start in range(0, len(words), step):
-        yield " ".join(words[start:start + size])
+        yield " ".join(words[start : start + size])
         if start + size >= len(words):
             break
 
@@ -65,10 +66,10 @@ def main():
     collection = rag.get_collection()
     for i in range(0, len(texts), BATCH_SIZE):
         collection.upsert(
-            ids=ids[i:i + BATCH_SIZE],
-            documents=texts[i:i + BATCH_SIZE],
-            embeddings=rag.embed(texts[i:i + BATCH_SIZE]),
-            metadatas=metas[i:i + BATCH_SIZE],
+            ids=ids[i : i + BATCH_SIZE],
+            documents=texts[i : i + BATCH_SIZE],
+            embeddings=rag.embed(texts[i : i + BATCH_SIZE]),
+            metadatas=metas[i : i + BATCH_SIZE],
         )
         print(f"  Embeddings: {min(i + BATCH_SIZE, len(texts))}/{len(texts)}")
 

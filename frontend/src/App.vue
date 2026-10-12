@@ -37,12 +37,27 @@ async function sendQuestion(question: string) {
   let result: Message
   try {
     const response = await ask({ question })
-    result = { id, role: 'assistant', status: 'done', text: response.answer, sources: response.sources }
+    result = {
+      id,
+      role: 'assistant',
+      status: 'done',
+      text: response.answer,
+      sources: response.sources,
+    }
     if (status.value === 'offline') checkHealth()
   } catch (error) {
     const apiError =
-      error instanceof ApiError ? error : new ApiError('unknown', 'Unbekannter Fehler bei der Anfrage.')
-    result = { id, role: 'assistant', status: 'error', text: apiError.message, errorKind: apiError.kind, question }
+      error instanceof ApiError
+        ? error
+        : new ApiError('unknown', 'Unbekannter Fehler bei der Anfrage.')
+    result = {
+      id,
+      role: 'assistant',
+      status: 'error',
+      text: apiError.message,
+      errorKind: apiError.kind,
+      question,
+    }
     if (apiError.kind === 'network') status.value = 'offline'
   }
 
@@ -90,7 +105,10 @@ onMounted(checkHealth)
             Die Antwort nennt ihre Belege als Nummern wie [1]. Ein Klick darauf öffnet den passenden
             Textauszug.
           </p>
-          <p v-if="status !== null && status !== 'offline' && status.chunks_im_index === 0" class="empty__hint">
+          <p
+            v-if="status !== null && status !== 'offline' && status.chunks_im_index === 0"
+            class="empty__hint"
+          >
             Der Index ist noch leer: Dokumente nach <code>backend/docs/</code> legen und
             <code>python ingest.py</code> ausführen.
           </p>

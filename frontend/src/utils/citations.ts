@@ -3,9 +3,7 @@
 
 export type CitationRef = { n: number; valid: boolean }
 
-export type AnswerSegment =
-  | { type: 'text'; value: string }
-  | { type: 'cite'; refs: CitationRef[] }
+export type AnswerSegment = { type: 'text'; value: string } | { type: 'cite'; refs: CitationRef[] }
 
 const CITATION_PATTERN = /\[(\d+(?:\s*[,;]\s*\d+)*)\]/g
 

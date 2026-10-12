@@ -1,4 +1,5 @@
 """RAG-Kernlogik: Embeddings berechnen, ähnliche Abschnitte suchen, Antwort generieren."""
+
 import chromadb
 from openai import OpenAI
 
@@ -38,13 +39,15 @@ def retrieve(question: str, top_k: int = config.TOP_K) -> list[dict]:
 
     res = collection.query(query_embeddings=embed([question]), n_results=min(top_k, count))
     hits = []
-    for text, meta, dist in zip(res["documents"][0], res["metadatas"][0], res["distances"][0]):
-        hits.append({
-            "source": meta["source"],
-            "page": meta.get("page"),
-            "distance": round(dist, 3),
-            "text": text,
-        })
+    for text, meta, dist in zip(res["documents"][0], res["metadatas"][0], res["distances"][0], strict=True):
+        hits.append(
+            {
+                "source": meta["source"],
+                "page": meta.get("page"),
+                "distance": round(dist, 3),
+                "text": text,
+            }
+        )
     return hits
 
 
