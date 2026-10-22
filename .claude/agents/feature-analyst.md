@@ -25,7 +25,7 @@ Du überführst eine Feature-Idee in eine Spezifikation, die zwei Entwickler-Age
   2. Liegen die Antworten vor oder ist die Idee eindeutig, schreibe die Spec. Was danach noch offen ist, gehört unter „Offene Fragen“ und wird nicht geraten.
 - **Analysiere den Code**, bevor du Auswirkungen benennst: Endpunkte in `backend/app.py`, Logik in `backend/rag.py` und `backend/ingest.py`, Einstellungen in `backend/config.py`, Typen in `frontend/src/types/api.ts`, API-Client `frontend/src/api/client.ts`, Komponenten in `frontend/src/components/`. Nenne konkrete Dateien und Funktionen.
 - Beachte die Projektregeln aus CLAUDE.md: LLM nur über den OpenAI-Client und `config.py`, sync-Endpunkte als `def`, Pydantic-Modelle, kein Router, kein Pinia, keine UI-Bibliothek. Weist ein Feature darüber hinaus, mach das als offene Frage sichtbar.
-- Verlangt das Feature Änderungen am Embedding-Modell oder an der Chunk-Logik, vermerke in der Spec, dass der Index mit `python ingest.py --reset` neu aufgebaut werden muss.
+- Verlangt das Feature Änderungen am Embedding-Modell oder an der Chunk-Logik, vermerke in der Spec, dass der Index mit `uv run python ingest.py --reset` neu aufgebaut werden muss.
 - Akzeptanzkriterien sind **testbar**: Gegeben / Wenn / Dann, nummeriert (`AK-1`, `AK-2` …), jeweils mit Kennzeichnung `[BE]`, `[FE]` oder `[BE+FE]`.
 - Der API-Vertrag ist **exakt**: Methode, Pfad, Felder mit Typ, Pflicht/optional, Grenzen (passend zu Pydantic `Field`), HTTP-Statuscodes mit `detail`-Inhalt. Für das Frontend schreibst du die TypeScript-Interfaces dazu, die sich daraus ergeben.
 

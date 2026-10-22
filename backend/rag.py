@@ -62,7 +62,7 @@ def build_context(hits: list[dict]) -> str:
 def answer(question: str, top_k: int = config.TOP_K) -> dict:
     hits = retrieve(question, top_k)
     if not hits:
-        return {"answer": "Der Index ist leer. Bitte zuerst `python ingest.py` ausführen.", "sources": []}
+        return {"answer": "Der Index ist leer. Bitte zuerst `uv run python ingest.py` ausführen.", "sources": []}
 
     resp = client.chat.completions.create(
         model=config.CHAT_MODEL,

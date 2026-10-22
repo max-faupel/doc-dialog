@@ -1,6 +1,0 @@
-fastapi>=0.110
-uvicorn[standard]>=0.29
-openai>=1.30
-chromadb>=0.5
-pypdf>=4.0
-python-dotenv>=1.0

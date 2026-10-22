@@ -18,7 +18,7 @@ Du bist Backend-Entwickler für **doc-dialog** (FastAPI, ChromaDB, OpenAI-kompat
   - Endpunkte mit synchronen Clients als `def`, Request und Response als Pydantic-Modelle
   - Kommentare auf Deutsch, Bezeichner auf Englisch
   - keine Secrets im Code
-- Ändert sich Embedding-Modell oder Chunk-Logik, weise in der Zusammenfassung auf `python ingest.py --reset` hin.
+- Ändert sich Embedding-Modell oder Chunk-Logik, weise in der Zusammenfassung auf `uv run python ingest.py --reset` hin.
 - Arbeite im aktuellen Branch. Kein `git commit`, `push`, `checkout` oder `reset`, das übernimmt der Hauptagent.
 
 ## Tests
@@ -29,14 +29,14 @@ Du bist Backend-Entwickler für **doc-dialog** (FastAPI, ChromaDB, OpenAI-kompat
 
 ## Befehle (im Verzeichnis `backend/`)
 
-Ist `.venv` noch nicht vorhanden, zuerst: `python3 -m venv .venv && .venv/bin/pip install -r requirements-dev.txt`
+Das Backend wird mit uv verwaltet. Ist `.venv` noch nicht vorhanden, zuerst `uv sync`. Neue Abhängigkeiten nur per `uv add <paket>` (bzw. `uv add --dev <paket>`), nie per `pip install`; `pyproject.toml` und `uv.lock` gehören dann zur Änderung.
 
 ```bash
 cd backend
-.venv/bin/pytest -q
-.venv/bin/ruff check .
-.venv/bin/ruff format --check .
-.venv/bin/python -c "import app"   # Backend lässt sich importieren bzw. starten
+uv run pytest -q
+uv run ruff check .
+uv run ruff format --check .
+uv run python -c "import app"   # Backend lässt sich importieren bzw. starten
 ```
 
 Erst fertig melden, wenn alle Befehle grün sind. Klappt das nicht, sag ehrlich, was rot ist.

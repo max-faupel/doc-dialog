@@ -14,12 +14,13 @@ RAG-System zum Befragen eigener Dokumente. Python-Backend (FastAPI + ChromaDB), 
 
 ## Befehle
 
-Backend (in `backend/`, mit aktivierter venv `.venv`):
-- `pip install -r requirements-dev.txt` (enthält `requirements.txt` plus pytest, ruff)
-- `pytest` – Tests, LLM und Index werden gemockt (`tests/conftest.py`)
-- `ruff check .` / `ruff format .`
-- `python ingest.py` / `python ingest.py --reset`
-- `uvicorn app:app --reload` (Port 8000)
+Backend (in `backend/`, verwaltet mit uv, Abhängigkeiten in `pyproject.toml` und `uv.lock`):
+- `uv sync` – legt `.venv` an und installiert alles inkl. Dev-Gruppe (pytest, ruff)
+- `uv add <paket>` / `uv add --dev <paket>` – Abhängigkeiten hinzufügen, nie `pip install`
+- `uv run pytest` – Tests, LLM und Index werden gemockt (`tests/conftest.py`)
+- `uv run ruff check .` / `uv run ruff format .`
+- `uv run python ingest.py` / `uv run python ingest.py --reset`
+- `uv run uvicorn app:app --reload` (Port 8000)
 
 Frontend (in `frontend/`):
 - `npm install`
@@ -38,7 +39,7 @@ Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
 
 ### Backend
 - LLM-Anbieter nie hart verdrahten: immer über den OpenAI-Client mit `LLM_BASE_URL`, `LLM_API_KEY` und Modellnamen aus `config.py`.
-- Wird das Embedding-Modell oder die Chunk-Logik geändert, muss der Index mit `python ingest.py --reset` neu aufgebaut werden. Darauf hinweisen.
+- Wird das Embedding-Modell oder die Chunk-Logik geändert, muss der Index mit `uv run python ingest.py --reset` neu aufgebaut werden. Darauf hinweisen.
 - Endpunkte mit synchronen Clients als `def` (nicht `async def`) deklarieren, damit FastAPI sie im Threadpool ausführt.
 - Request- und Response-Modelle immer als Pydantic-Klassen. Änderungen an der API-Form auch im Frontend-Typ `frontend/src/types/api.ts` nachziehen.
 
@@ -49,7 +50,7 @@ Voraussetzung lokal: `ollama pull nomic-embed-text` und `ollama pull llama3.1`
 - Styling mit Scoped CSS und CSS-Variablen, helles und dunkles Theme über `prefers-color-scheme`.
 
 ## Arbeitsweise
-- Nach Änderungen prüfen: Backend startet ohne Fehler, `pytest` und `ruff check .` sind grün; im Frontend laufen `test:unit`, `lint`, `type-check` und `build` durch.
+- Nach Änderungen prüfen: Backend startet ohne Fehler, `uv run pytest` und `uv run ruff check .` sind grün; im Frontend laufen `test:unit`, `lint`, `type-check` und `build` durch.
 - Bei größeren Änderungen erst einen Plan vorschlagen, dann umsetzen.
 
 ## Agentic Workflow
