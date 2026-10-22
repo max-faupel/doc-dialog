@@ -110,7 +110,7 @@ onMounted(checkHealth)
             class="empty__hint"
           >
             Der Index ist noch leer: Dokumente nach <code>backend/docs/</code> legen und
-            <code>python ingest.py</code> ausführen.
+            <code>uv run python ingest.py</code> ausführen.
           </p>
         </div>
         <ChatMessage

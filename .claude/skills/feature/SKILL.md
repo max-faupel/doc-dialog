@@ -102,6 +102,6 @@ Umgang mit `VERTRAGSPROBLEM` und Abhaken wie in Schritt 3.
    - geänderte Dateien (`git diff main...HEAD --stat`)
    - Akzeptanzkriterien mit Tests (aus dem letzten Review)
    - Ergebnis der Checks
-   - offene nits und Punkte, Hinweis auf `python ingest.py --reset`, falls nötig
+   - offene nits und Punkte, Hinweis auf `uv run python ingest.py --reset`, falls nötig
 3. Commit-Vorschlag: `git status --short` und eine Commit-Nachricht zeigen (Titel, Stichpunkte pro Bereich, Verweis auf die Spec). Committen erst nach Freigabe.
 4. **Nicht pushen, keinen PR anlegen, nicht mergen**, ohne dass der Nutzer das ausdrücklich freigibt. Nach Freigabe: `git push -u origin feature/<slug>` und `gh pr create --base main` mit Zusammenfassung und Link zur Spec im Body.

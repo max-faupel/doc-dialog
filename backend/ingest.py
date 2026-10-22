@@ -1,8 +1,8 @@
 """Liest Dokumente aus DOCS_DIR, zerlegt sie in Abschnitte und speichert sie mit Embeddings in ChromaDB.
 
 Aufruf:
-    python ingest.py          # neue/geänderte Abschnitte hinzufügen bzw. aktualisieren
-    python ingest.py --reset  # Index komplett neu aufbauen (z. B. nach Änderung der Chunk-Größe)
+    uv run python ingest.py          # neue/geänderte Abschnitte hinzufügen bzw. aktualisieren
+    uv run python ingest.py --reset  # Index komplett neu aufbauen (z. B. nach Änderung der Chunk-Größe)
 """
 
 import argparse

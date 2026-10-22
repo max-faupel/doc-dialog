@@ -1,8 +1,31 @@
-# Nur Tool-Konfiguration, das Backend ist kein installierbares Paket.
+# App-Projekt, wird mit uv verwaltet. Kein installierbares Paket.
+
+[project]
+name = "doc-dialog-backend"
+version = "0.1.0"
+requires-python = ">=3.14"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn[standard]>=0.29",
+    "openai>=1.30",
+    "chromadb>=0.5",
+    "pypdf>=4.0",
+    "python-dotenv>=1.0",
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0",
+    "httpx>=0.27",
+    "ruff>=0.6",
+]
+
+[tool.uv]
+package = false
 
 [tool.ruff]
 line-length = 120
-target-version = "py311"
+target-version = "py314"
 extend-exclude = ["chroma_db", "docs"]
 
 [tool.ruff.lint]

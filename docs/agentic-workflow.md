@@ -27,8 +27,7 @@ Einmalig einrichten, damit Tests, Linter und der Format-Hook funktionieren:
 ```bash
 # Backend
 cd backend
-python3 -m venv .venv
-.venv/bin/pip install -r requirements-dev.txt
+uv sync
 
 # Frontend
 cd ../frontend
@@ -145,7 +144,7 @@ Nutze den feature-analyst, um docs/features/export-markdown.md um einen Fehlerfa
 - Ablage: `docs/features/<slug>.md`, Slug englisch in kebab-case
 - Lebenszyklus: `draft` → `approved` (nur nach deiner Freigabe) → `done`
 - Specs werden mit dem Feature committet und bleiben als Dokumentation erhalten.
-- Ändert ein Feature das Embedding-Modell oder die Chunk-Logik, steht das in der Spec. Danach muss der Index mit `python ingest.py --reset` neu aufgebaut werden.
+- Ändert ein Feature das Embedding-Modell oder die Chunk-Logik, steht das in der Spec. Danach muss der Index mit `uv run python ingest.py --reset` neu aufgebaut werden.
 
 ## Hooks
 
@@ -168,7 +167,7 @@ Tests und ESLint laufen bewusst nicht im Hook, damit Edits schnell bleiben. Die 
 | Problem | Lösung |
 |---|---|
 | `/feature` oder ein Agent wird nicht gefunden | Claude Code neu starten, `.claude/` liegt im Projekt-Root |
-| Dateien werden nicht formatiert | `backend/.venv` bzw. `frontend/node_modules` installiert? `jq` vorhanden? |
-| Dev-Agent meldet rote Tests in fremdem Code | Vor `/feature` prüfen, ob `main` grün ist (`pytest`, `npm run test:unit`) |
+| Dateien werden nicht formatiert | `backend/.venv` (per `uv sync`) bzw. `frontend/node_modules` installiert? `jq` vorhanden? |
+| Dev-Agent meldet rote Tests in fremdem Code | Vor `/feature` prüfen, ob `main` grün ist (`uv run pytest`, `npm run test:unit`) |
 | Workflow bricht wegen lokaler Änderungen ab | Änderungen committen oder stashen, dann neu starten |
 | Fix-Schleife nach 2 Runden beendet | Offene Findings selbst bewerten: Spec anpassen, gezielt `backend-dev`/`frontend-dev` beauftragen oder bewusst akzeptieren |

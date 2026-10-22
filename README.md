@@ -23,7 +23,7 @@ doc-dialog/
 
 ## Voraussetzungen
 
-- Python 3.10+
+- [uv](https://docs.astral.sh/uv/) und Python 3.14+ (uv installiert es bei Bedarf selbst)
 - Node.js 22.18+ oder 24.12+
 - [Ollama](https://ollama.com) mit den Modellen für Embeddings und Chat:
 
@@ -36,17 +36,15 @@ doc-dialog/
 
 ```bash
 cd backend
-python -m venv .venv
-source .venv/bin/activate          # Windows: .venv\Scripts\activate
-pip install -r requirements-dev.txt   # nur Betrieb: requirements.txt
-pytest                             # Tests (ohne Ollama)
+uv sync                            # .venv anlegen, Abhängigkeiten installieren (nur Betrieb: --no-dev)
+uv run pytest                      # Tests (ohne Ollama)
 cp .env.example .env               # bei Bedarf anpassen
 
 # Dokumente nach backend/docs/ kopieren, dann indexieren
-python ingest.py
+uv run python ingest.py
 
 # API starten (Port 8000)
-uvicorn app:app --reload
+uv run uvicorn app:app --reload
 ```
 
 Unter http://localhost:8000/docs gibt es die Swagger-Oberfläche. Test per curl:
@@ -88,7 +86,7 @@ Alle Einstellungen stehen in `backend/.env` (Vorlage: `backend/.env.example`):
 **Wichtig:** Nach jeder Änderung von `EMBED_MODEL`, `CHUNK_SIZE` oder `CHUNK_OVERLAP` den Index neu aufbauen:
 
 ```bash
-python ingest.py --reset
+uv run python ingest.py --reset
 ```
 
 Der Modellname muss genau so lauten wie in `ollama list`. Ist dort zum Beispiel nur `llama3.1:8b` installiert, gehört `CHAT_MODEL=llama3.1:8b` in die `.env`.
@@ -114,7 +112,7 @@ Für die agentische Weiterentwicklung gibt es Subagents und die Skills `/feature
 
 ## Ideen zum Experimentieren
 
-1. **Chunk-Größe:** `CHUNK_SIZE` auf 100 und auf 800 setzen, jeweils `python ingest.py --reset`, gleiche Fragen stellen und vergleichen.
+1. **Chunk-Größe:** `CHUNK_SIZE` auf 100 und auf 800 setzen, jeweils `uv run python ingest.py --reset`, gleiche Fragen stellen und vergleichen.
 2. **Anzahl Treffer:** `top_k` im Request zwischen 1 und 10 variieren. Wann fehlt Kontext, wann verwirrt zu viel?
 3. **Halluzinationstest:** Fragen stellen, deren Antwort in keinem Dokument steht. Sagt das Modell ehrlich, dass es nichts findet?
 4. **Distanzen beobachten:** Ab welchem `distance`-Wert sind Treffer irrelevant? Daraus lässt sich ein Schwellwert ableiten.

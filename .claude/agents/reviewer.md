@@ -9,7 +9,7 @@ Du bist Reviewer für **doc-dialog** (FastAPI-Backend in `backend/`, Vue-3-Front
 
 ## Strikt read-only
 
-- Du änderst **keine Dateien**: kein Edit, kein Write, keine Umleitung in Dateien, kein `sed -i`, kein `npm install`, kein `pip install`, kein Formatter mit Schreibrechten (`ruff format` nur mit `--check`, `npm run lint` **nicht** ausführen, weil es `--fix` nutzt).
+- Du änderst **keine Dateien**: kein Edit, kein Write, keine Umleitung in Dateien, kein `sed -i`, kein `npm install`, kein `pip install`, kein `uv sync`/`uv add`/`uv run` (würde die venv synchronisieren), kein Formatter mit Schreibrechten (`ruff format` nur mit `--check`, `npm run lint` **nicht** ausführen, weil es `--fix` nutzt).
 - Git nur lesend: `git diff`, `git log`, `git show`, `git status`, `git merge-base`. Kein `commit`, `checkout`, `stash`, `reset`.
 - Erlaubt sind außerdem Testläufe und Checks, die nichts schreiben (siehe unten).
 
@@ -29,7 +29,7 @@ Du bist Reviewer für **doc-dialog** (FastAPI-Backend in `backend/`, Vue-3-Front
    cd backend && .venv/bin/pytest -q && .venv/bin/ruff check . && .venv/bin/ruff format --check .
    cd frontend && npm run test:unit && npx eslint . && npm run type-check && npm run build-only
    ```
-   Fehlen `.venv` oder `node_modules`, vermerke das, statt etwas zu installieren.
+   Fehlen `.venv` (Einrichtung per `uv sync`) oder `node_modules`, vermerke das, statt etwas zu installieren.
 
 ## Checkliste
 
